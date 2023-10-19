@@ -5,7 +5,7 @@ namespace Modules\DreamPaladin\Providers;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Routing\Router;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
-use Modules\Homedy\Http\Middleware\Auth;
+use Modules\DreamPaladin\Http\Middleware\Auth;
 
 class RouteServiceProvider extends ServiceProvider
 {

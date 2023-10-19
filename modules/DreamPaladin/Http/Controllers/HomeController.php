@@ -24,7 +24,7 @@ class HomeController extends Controller
 
     #[Route(method: 'get', uri: 'hello')]
     public function hello(Request $request) {
-        App::setLocale("en");
+        App::setLocale("vi");
         return view('dreampaladin::home');
     }
 
