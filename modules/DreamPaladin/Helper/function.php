@@ -15,6 +15,11 @@ function module_name_upper(): string
     return strtoupper(module_name());
 }
 
+function module_namespace():string
+{
+    return "Modules\'". module_name() ."\Http\Controllers";
+}
+
 function module_path($path): string {
     return __DIR__.'/../'. $path;
 }

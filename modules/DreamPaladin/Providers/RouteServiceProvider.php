@@ -9,7 +9,6 @@ use Modules\DreamPaladin\Http\Middleware\Auth;
 
 class RouteServiceProvider extends ServiceProvider
 {
-    protected string $moduleNamespace = 'Modules\DreamPaladin\Http\Controllers';
 
     public function boot(): void
     {
@@ -30,7 +29,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapWebRoutes(): void
     {
         Route::middleware('web')
-            ->namespace($this->moduleNamespace)
+            ->namespace(module_namespace())
             ->group(module_path('/Routes/web.php'));
     }
 }

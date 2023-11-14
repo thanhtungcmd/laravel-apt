@@ -1,6 +1,6 @@
-<link rel="stylesheet" type="text/css" href="{{ asset('dreampaladin/style.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset(module_name_lower().'/style.css') }}">
 
 <div class="container">
-    {{ trans('dreampaladin::messages.welcome') }}
+    {{ trans(module_name_lower().'::messages.welcome') }}
 </div>
 
