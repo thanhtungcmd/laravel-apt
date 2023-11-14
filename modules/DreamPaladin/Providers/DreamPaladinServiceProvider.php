@@ -9,7 +9,6 @@ use Illuminate\Support\Arr;
 
 class DreamPaladinServiceProvider extends ServiceProvider
 {
-    protected string $moduleName = 'DreamPaladin';
 
     public function boot(): void
     {
@@ -38,10 +37,10 @@ class DreamPaladinServiceProvider extends ServiceProvider
     protected function registerConfig(): void
     {
         $this->publishes([
-            module_path('Config/config.php') => config_path(strtolower($this->moduleName) . '.php'),
+            module_path('Config/config.php') => config_path(module_name_lower() . '.php'),
         ], 'config');
         $this->mergeConfigFrom(
-            module_path('Config/config.php'), strtolower($this->moduleName)
+            module_path('Config/config.php'), module_name_lower()
         );
         $config = $this->app['config']->get('logging', []);
         $this->app['config']->set('logging', $this->mergeConfig($config, require module_path('Config/logging.php')));
@@ -50,47 +49,42 @@ class DreamPaladinServiceProvider extends ServiceProvider
     protected function mergeConfig(array $original, array $merging): array
     {
         $array = array_merge($original, $merging);
-
         foreach ($original as $key => $value) {
             if (! is_array($value)) {
                 continue;
             }
-
             if (! Arr::exists($merging, $key)) {
                 continue;
             }
-
             if (is_numeric($key)) {
                 continue;
             }
-
             $array[$key] = $this->mergeConfig($value, $merging[$key]);
         }
-
         return $array;
     }
 
     public function registerTranslations(): void
     {
-        $this->loadTranslationsFrom(module_path('Resources/lang'), strtolower($this->moduleName));
+        $this->loadTranslationsFrom(module_path('Resources/lang'), module_name_lower());
     }
 
     public function registerViews(): void
     {
-        $viewPath = resource_path('views/modules/' . strtolower($this->moduleName));
+        $viewPath = resource_path('views/modules/' . module_name_lower());
 
         $sourcePath = module_path('Resources/views');
 
         $this->publishes([
             $sourcePath => $viewPath
-        ], ['views', strtolower($this->moduleName) . '-module-views']);
+        ], ['views', module_name_lower() . '-module-views']);
 
-        $this->loadViewsFrom(array_merge($this->getPublishableViewPaths(), [$sourcePath]), strtolower($this->moduleName));
+        $this->loadViewsFrom(array_merge($this->getPublishableViewPaths(), [$sourcePath]), module_name_lower());
     }
 
     public function registerAssets(): void
     {
-        $viewPath = public_path(strtolower($this->moduleName));
+        $viewPath = public_path(module_name_lower());
 
         $sourcePath = module_path('Resources/assets');
 
@@ -103,8 +97,8 @@ class DreamPaladinServiceProvider extends ServiceProvider
     {
         $paths = [];
         foreach (config('view.paths') as $path) {
-            if (is_dir($path . '/modules/' . strtolower($this->moduleName))) {
-                $paths[] = $path . '/modules/' . strtolower($this->moduleName);
+            if (is_dir($path . '/modules/' . module_name_lower())) {
+                $paths[] = $path . '/modules/' . module_name_lower();
             }
         }
         return $paths;
