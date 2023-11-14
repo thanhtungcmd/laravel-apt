@@ -2,5 +2,5 @@
 
 Route::get('/', function () {
     dd(config());
-    return env("DREAMPALADIN_TEST_01");
+    return env("TEST_01");
 });

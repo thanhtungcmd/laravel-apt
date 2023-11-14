@@ -1,3 +1,5 @@
 <?php
 
-return [];
+return [
+    'test' => env("TEST_01")
+];

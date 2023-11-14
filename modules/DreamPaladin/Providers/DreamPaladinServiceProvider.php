@@ -31,7 +31,7 @@ class DreamPaladinServiceProvider extends ServiceProvider
         $env = Dotenv::parse($data);
         $repo = Env::getRepository();
         foreach ($env as $key => $value) {
-            $repo->set(strtoupper($this->moduleName).'_'.$key, $value);
+            $repo->set($key, $value);
         }
     }
 
