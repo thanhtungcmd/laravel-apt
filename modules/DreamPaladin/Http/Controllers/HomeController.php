@@ -4,6 +4,7 @@ namespace Modules\DreamPaladin\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Log;
 use modules\DreamPaladin\Domain\DTO\Simple;
 use Spatie\RouteDiscovery\Attributes\Route;
 use Illuminate\Routing\Controller;
@@ -19,6 +20,7 @@ class HomeController extends Controller
             'record_company' => 'test'
         ];
         $simple = Simple::from($data);
+        Log::channel(module_name_lower())->info($simple);
         return $simple;
     }
 
