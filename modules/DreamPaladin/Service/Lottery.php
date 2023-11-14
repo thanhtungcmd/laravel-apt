@@ -9,12 +9,12 @@ class Lottery
      * $l = app(Modules\DreamPaladin\Service\Lottery::class);
      * $l->power();
      */
-    public function power()
+    public function power(): string
     {
         $check = [];
         $data = [];
 
-        while (count($data) < 10) {
+        while (count($data) < 5) {
             $dataItem = [];
             while (count($dataItem) < 6) {
                 $number = (string)rand(1, 55);
@@ -35,15 +35,15 @@ class Lottery
             $itemStr = implode(" ", $item);
             $resultStr .= ' S '. $itemStr;
         }
-        echo ($resultStr);
+        return $resultStr;
     }
 
-    public function mega()
+    public function mega(): string
     {
         $check = [];
         $data = [];
 
-        while (count($data) < 10) {
+        while (count($data) < 5) {
             $dataItem = [];
             while (count($dataItem) < 6) {
                 $number = (string)rand(1, 45);
@@ -66,7 +66,7 @@ class Lottery
             $resultStr .= ' S '. $itemStr;
         }
 
-        echo $resultStr;
+        return $resultStr;
     }
 
 }

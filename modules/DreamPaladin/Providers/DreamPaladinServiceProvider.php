@@ -2,6 +2,8 @@
 
 namespace Modules\DreamPaladin\Providers;
 
+use Dotenv\Dotenv;
+use Illuminate\Support\Env;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Arr;
 
@@ -11,6 +13,7 @@ class DreamPaladinServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        $this->registerEnv();
         $this->registerConfig();
         $this->registerViews();
         $this->registerAssets();
@@ -20,6 +23,16 @@ class DreamPaladinServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->register(RouteServiceProvider::class);
+    }
+
+    protected function registerEnv(): void
+    {
+        $data = trim(file_get_contents(module_path(".env")));
+        $env = Dotenv::parse($data);
+        $repo = Env::getRepository();
+        foreach ($env as $key => $value) {
+            $repo->set(strtoupper($this->moduleName).'_'.$key, $value);
+        }
     }
 
     protected function registerConfig(): void
